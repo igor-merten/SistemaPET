@@ -5,6 +5,8 @@ from app.models.SistemaPET import SistemaPET
 pet_bp = Blueprint('pets', __name__)
 sistema = SistemaPET()
 
+
+#################### CRIAR PET ####################
 @pet_bp.route("/criar_pet", methods=['POST'])
 def criar_pet():
     # Pega json enviado do front
@@ -20,7 +22,6 @@ def criar_pet():
     
     # Verifica se o status é válido
     status_validos = ["Atendido", "Aguardando atendimento", "Em consulta"]
-    # status = 
     
     if data.get("status") not in status_validos:
         return jsonify({"message": "Status inválido!"}), 400
@@ -28,6 +29,8 @@ def criar_pet():
     sistema.cadastrarPET(data.get("nome"), data.get("idade"), data.get("especie"), data.get("status"))
     return jsonify({"message": "Pet criado com sucesso!"}), 201
 
+
+#################### ATUALIZAR STATUS ####################
 @pet_bp.route("/atualiza_status", methods=['POST'])
 def atualiza_status():
     # Pega json enviado do front
@@ -51,9 +54,14 @@ def atualiza_status():
     
     return jsonify({"message": "Status atualizado com sucesso!"}), 200
 
+
+#################### LISTAR PETS ####################
 @pet_bp.route("/listar_pets", methods=["GET"])
 def listar_pets():
     # Pega lista de pets do SistemaPET.py
     pets = sistema.listarPETs()
     print(pets)
     return jsonify({"pets": pets}), 200
+
+
+

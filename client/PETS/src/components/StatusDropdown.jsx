@@ -37,7 +37,8 @@ function StatusDropdown(received) {
     })
     .then(responseData  => {
       //deu tudo certo
-      showMessage("Status editado com sucesso!", "success");
+      // showMessage("Status editado!", "success");
+      showMessage(responseData.message, "success");
       console.log("Resposta do servidor:", responseData );
     })
     // mostra erro
